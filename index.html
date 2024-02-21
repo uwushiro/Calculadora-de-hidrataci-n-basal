@@ -1,78 +1,32 @@
 <!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="diseño.css">
-    <title>Calculadora de hidratacion</title>
-</head>
-
-<body>
-    <div>
-        <div class="container1">
-            <h1>Calculadora Basal</h1>
-            <form id="calculator">
-                <div>
-                    <input type="number" id="weight" name="weight" min="1" placeholder="ingrese el peso en kg" required />
-                    <p>*Debe completar todos los datos</p>
-                </div>    
-                <button type="button" onclick="calculate()">Calcular</button>
-            </form>
-            <p>71cc/h</p>
-            <p>m+m/2 : 105cc/h</p>
-            <div id="results">
-                <h2>Resultados</h2>
-                <p id="method"></p>
-                <p id="calculation"></p>
-                <p id="maintenance"></p>
-                <p id="mm2"></p>
+<html>
+    <head>
+        <link rel="stylesheet" href="./style.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <div id="contenedor">
+            <div id="calculadora">
+                <div class="contenido">
+                    <h1>Hidratación Basal</h1>
+                    <p class="item">Completa todos los datos</p>
+                    <input class="item" id="peso" type="number" placeholder="Peso en kg" />
+                    <p class="item" id="error">* Debe completar todos los datos</p>
+                    <button class="item" id="calcular">Calcular</button>
+                    <p class="item resultado" id="flu">71cc/h</p>
+                    <p class="item resultado" id="man">m+m/2 : 105cc/h</p>
+                </div>
             </div>
-            <script>
-                function calculate() {
-                    var weight = parseFloat(document.getElementById('weight').value);
-                    var resultsdiv = document.getElementById('results');
-                    resultsdiv.style.display = 'block';
-
-                    if (weight <= 30) {
-                        var volume = CalculateVolume(weight);
-                        var maintenance = volume / 24;
-                        var mm2 = maintenance * 1.5;
-
-                        document.getElementById('method').innerText = 'Metodo: Holliday-Segar';
-                        document.getElementById('calculation').innerText = 'Volumen diario: ' + volume + ' cc';
-                        document.getElementById('maintenance').innerText = 'Mantenimiento: ' + maintenance.toFixed() + ' cc/hr';
-                        document.getElementById('mm2').innerText = 'm+m/2: ' + mm2.toFixed() + ' cc/hr';
-                    } else {
-                        var surfaceArea = ((weight * 4) + 7) / (weight + 90);
-                        var volume1500 = surfaceArea * 1500;
-                        var volume2000 = surfaceArea * 2000;
-
-                        document.getElementById('method').innerText = 'Metodo: Superficie Corporal';
-                        document.getElementById('calculation').innerText = 'Volumen diario(1500): ' + volume1500.toFixed() + ' cc';
-                        document.getElementById('maintenance').innerText = 'Volumen diario(2000): ' + volume2000.toFixed() + ' cc';
-                    }
-                }
-                function CalculateVolume(weight) {
-                    if (weight <= 10) {
-                        return weight * 100;
-                    } else if (weight <= 20) {
-                        return 1000 + ((weight - 10) * 50);
-                    } else {
-                        return 1500 + ((weight - 10) * 20);
-                    }
-                }
-            </script>
+            <div id="detalle">
+                <div class="contenido">
+                    <h1>¿Como se calcula?</h1>
+                    <ul>
+                        <li>De 0kg a 10kg, se calcula 100cc por cada kilo.</li>
+                        <li>Se suman 50cc por cada kilo de peso por arriba de 10kg, hasta 20kg</li>
+                        <li>De 20kg para arriba, se suman 20cc por cada kilo adicional</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="container2">
-            <h1>¿Como se calcula?</h1>
-            <ul>
-                <li>De 0kg a 10kg, se calcula 100cc por cada kilo.</li>
-                <li>Se suman 50cc por cada kilo de peso por arriba de 10kg, hasta 20kg</li>
-                <li>De 20kg para arriba, se suman 20cc por cada kilo adicional</li>
-            </ul>
-        </div>
-    </div>
-</body>
-
+    </body>
 </html>
